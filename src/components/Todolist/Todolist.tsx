@@ -1,14 +1,19 @@
 import React from 'react';
-
-type PropsType = {
-  title: string
-  tasks: Array<TaskType>
-}
+import {FilterValuesType} from '../../App';
+import s from './Todolist.module.css';
 
 type TaskType = {
   id: number
   title: string
   checkbox: boolean
+}
+
+type PropsType = {
+  title: string
+  tasks: Array<TaskType>
+  removeTask: (id: number) => void
+  changeFilter: (value: FilterValuesType) => void
+  filter: FilterValuesType
 }
 
 const Todolist = (props: PropsType) => {
@@ -21,20 +26,21 @@ const Todolist = (props: PropsType) => {
       </div>
       <ul>
         {
-          props.tasks.map(function (elem) {
-          return (
-            <li>
-              <input type="checkbox" checked={elem.checkbox}/>
-              <span>{elem.title}</span> <span>{elem.id}</span>
-            </li>
-          )
-        })
+          props.tasks.map((i) => {
+            return (
+              <li key={i.id}>
+                <input type="checkbox" checked={i.checkbox}/>
+                <span>{i.title}</span>
+                <button onClick={() => {props.removeTask(i.id)}}>x</button>
+              </li>
+            )
+          })
         }
       </ul>
       <div>
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
+        <button onClick={() => {props.changeFilter('all')}}>All</button>
+        <button onClick={() => {props.changeFilter('active')}}>Active</button>
+        <button onClick={() => {props.changeFilter('completed')}}>Completed</button>
       </div>
     </div>
   )
