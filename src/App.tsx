@@ -9,6 +9,7 @@ function App() {
     {id: 1, title: 'HTML', checkbox: true},
     {id: 2, title: 'CSS', checkbox: true},
     {id: 3, title: 'JS', checkbox: true},
+    {id: 3, title: 'JS', checkbox: true},
     {id: 4, title: 'React', checkbox: false},
   ]);
   const [filter, setFilter] = useState<FilterValuesType>('all');
