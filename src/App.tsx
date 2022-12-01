@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import './App.css';
 import Todolist from './components/Todolist/Todolist';
+import {v1} from 'uuid';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
 function App() {
   const [tasks, setTasks] = useState([
-    {id: 1, title: 'HTML', checkbox: true},
-    {id: 2, title: 'CSS', checkbox: true},
-    {id: 3, title: 'JS', checkbox: true},
-    {id: 3, title: 'JS', checkbox: true},
-    {id: 4, title: 'React', checkbox: false},
+    {id: v1(), title: 'HTML', checkbox: true},
+    {id: v1(), title: 'CSS', checkbox: true},
+    {id: v1(), title: 'JS', checkbox: true},
+    {id: v1(), title: 'JS', checkbox: true},
+    {id: v1(), title: 'React', checkbox: false},
   ]);
   const [filter, setFilter] = useState<FilterValuesType>('all');
 
