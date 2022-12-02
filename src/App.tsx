@@ -15,7 +15,7 @@ function App() {
   ]);
   const [filter, setFilter] = useState<FilterValuesType>('all');
 
-  const removeTask = (id: number) => {
+  const removeTask = (id: string) => {
     const remove = tasks.filter(i => i.id !== id);
     setTasks(remove);
   }
@@ -32,6 +32,11 @@ function App() {
     setFilter(value);
   }
 
+  const addTask = (title: string) => {
+    const newTask = {id: v1(), title, checkbox: false};
+    setTasks([newTask, ...tasks]);
+  }
+
   return (
     <div className="App">
       <Todolist
@@ -40,6 +45,7 @@ function App() {
         removeTask={removeTask}
         changeFilter={changeFilter}
         filter={filter}
+        addTask={addTask}
       />
     </div>);
 
