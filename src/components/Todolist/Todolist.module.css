@@ -1,3 +1,42 @@
 .active {
   background: red;
 }
+
+.input {
+  border: 1px solid grey;
+}
+
+.input:focus-visible {
+  outline: none;
+  border-radius: 0;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+}
+
+.button {
+  border: none;
+  padding: 5px 10px;
+  background: #cacaca;
+  margin: 0 2px 0 0;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #a6a6a6;
+}
+
+.buttonActive {
+  background: #8be28b;
+}
+
+.buttonActive:hover {
+  background: #8be28b;
+  cursor: auto;
+}

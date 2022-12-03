@@ -37,6 +37,15 @@ function App() {
     setTasks([newTask, ...tasks]);
   }
 
+  const changeTaskActive = (id: string, isDone: boolean) => {
+    const task = tasks.find(i => i.id === id);
+
+    if(task) {
+      task.checkbox = isDone;
+    }
+    setTasks([...tasks]);
+  }
+
   return (
     <div className="App">
       <Todolist
@@ -46,6 +55,7 @@ function App() {
         changeFilter={changeFilter}
         filter={filter}
         addTask={addTask}
+        changeTaskActive={changeTaskActive}
       />
     </div>);
 
