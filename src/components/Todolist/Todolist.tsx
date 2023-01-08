@@ -14,7 +14,7 @@ type PropsType = {
   changeFilter: (value: FilterValuesType) => void
   filter: FilterValuesType
   addTask: (title: string) => void
-  changeTaskActive: (id: string, isDone: boolean) => void
+  changeTaskStatus: (id: string, isDone: boolean) => void
 }
 
 const Todolist = (props: PropsType) => {
@@ -69,11 +69,11 @@ const Todolist = (props: PropsType) => {
             }
 
             const changeTaskActiveHandler = (e: ChangeEvent<HTMLInputElement>) => {
-              props.changeTaskActive(i.id, e.currentTarget.checked);
+              props.changeTaskStatus(i.id, e.currentTarget.checked);
             }
 
             return (
-              <li key={i.id}>
+              <li className={i.checkbox ? s.isDone : ''} key={i.id}>
                 <input type="checkbox" checked={i.checkbox} onChange={changeTaskActiveHandler}/>
                 <span>{i.title}</span>
                 <button onClick={removeTaskHandler}>x</button>

@@ -37,7 +37,7 @@ function App() {
     setTasks([newTask, ...tasks]);
   }
 
-  const changeTaskActive = (id: string, isDone: boolean) => {
+  const changeTaskStatus = (id: string, isDone: boolean) => {
     const task = tasks.find(i => i.id === id);
 
     if(task) {
@@ -55,7 +55,7 @@ function App() {
         changeFilter={changeFilter}
         filter={filter}
         addTask={addTask}
-        changeTaskActive={changeTaskActive}
+        changeTaskStatus={changeTaskStatus}
       />
     </div>);
 
