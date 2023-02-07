@@ -8,10 +8,11 @@ type TaskType = {
   checkbox: boolean
 }
 type PropsType = {
+	id: string
   title: string
   tasks: Array<TaskType>
   removeTask: (id: string) => void
-  changeFilter: (value: FilterValuesType) => void
+  changeFilter: (value: FilterValuesType, todolistId: string) => void
   filter: FilterValuesType
   addTask: (title: string) => void
   changeTaskStatus: (id: string, isDone: boolean) => void
@@ -84,15 +85,15 @@ const Todolist = (props: PropsType) => {
       </ul>
       <div>
         <button className={props.filter === 'all' ? `${s.button} ${s.buttonActive}` : s.button} onClick={() => {
-          props.changeFilter('all')
+          props.changeFilter('all', props.id)
         }}>All
         </button>
         <button className={props.filter === 'active' ? `${s.button} ${s.buttonActive}` : s.button} onClick={() => {
-          props.changeFilter('active')
+          props.changeFilter('active', props.id)
         }}>Active
         </button>
         <button className={props.filter === 'completed' ? `${s.button} ${s.buttonActive}` : s.button} onClick={() => {
-          props.changeFilter('completed')
+          props.changeFilter('completed', props.id)
         }}>Completed
         </button>
       </div>
