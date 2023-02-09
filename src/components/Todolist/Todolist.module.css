@@ -3,7 +3,10 @@
 }
 
 .input {
-	border: 1px solid grey;
+	height: 25px;
+	border: 1px solid #cacaca;
+	box-sizing: border-box;
+	padding: 2px 5px;
 }
 
 .input:focus-visible {
@@ -21,6 +24,7 @@
 }
 
 .button {
+	height: 25px;
 	border: none;
 	padding: 5px 10px;
 	background: #cacaca;
@@ -41,6 +45,26 @@
 	cursor: auto;
 }
 
+.list {
+	list-style-type: none;
+	padding: 0 0 0 10px;
+}
+
+.item {
+	font-size: 18px;
+	margin: 0 0 5px;
+}
+
 .isDone {
 	opacity: .5;
+}
+
+.removeButton {
+	width: 20px;
+	height: 20px;
+	font-size: 16px;
+	line-height: .5;
+	cursor: pointer;
+	padding: 0;
+	margin: 0 0 0 5px;
 }
