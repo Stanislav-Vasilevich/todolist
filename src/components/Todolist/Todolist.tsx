@@ -1,9 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from '../../App';
 import s from './Todolist.module.css';
+import ChangeInput from "./ChangeInput/ChangeInput";
 
 type PropsType = {
-	id: string
+	todoListId: string
 	title: string
 	tasks: Array<TaskType>
 	removeTask: (todoListId: string, taskId: string) => void
@@ -12,6 +13,8 @@ type PropsType = {
 	addTask: (todoListId: string, title: string) => void
 	changeTaskStatus: (todoListId: string, id: string, isDone: boolean) => void
 	removeTodoList: (todoListId: string) => void
+	changeTitle: (newTitle: string, todoListId: string, taskId: string) => void
+	changeTitleTodoList: (newTitle: string, todoListId: string) => void
 }
 
 const Todolist = (props: PropsType) => {
@@ -32,7 +35,7 @@ const Todolist = (props: PropsType) => {
 			return;
 		} else {
 			setError(false);
-			props.addTask(props.id, titleTask.trim());
+			props.addTask(props.todoListId, titleTask.trim());
 			setErrorText('');
 		}
 
@@ -45,13 +48,18 @@ const Todolist = (props: PropsType) => {
 		}
 	}
 
+	const changeTitleTodoList = (newTitle: string) => {
+		props.changeTitleTodoList(newTitle, props.todoListId);
+	}
+
 	return (
 		<div>
 			<h3>
-				{props.title}
+				{/*{props.title}*/}
+				<ChangeInput title={props.title} changeTitle={changeTitleTodoList}/>
 				<button
 					className={s.removeButton}
-					onClick={() => props.removeTodoList(props.id)}
+					onClick={() => props.removeTodoList(props.todoListId)}
 				>&#215;</button>
 			</h3>
 			<div>
@@ -67,16 +75,20 @@ const Todolist = (props: PropsType) => {
 			<ul className={s.list}>
 				{
 					props.tasks.map((i) => {
+						const changeTitle = (title: string) => {
+							props.changeTitle(title, props.todoListId, i.id);
+						}
+
 						return (
 							<li className={i.checkbox ? `${s.isDone} ${s.item}` : s.item} key={i.id}>
 								<input
 									type="checkbox"
 									checked={i.checkbox}
-									onChange={(e) => props.changeTaskStatus(props.id, i.id, e.currentTarget.checked)}/>
-								<span>{i.title}</span>
+									onChange={(e) => props.changeTaskStatus(props.todoListId, i.id, e.currentTarget.checked)}/>
+								<ChangeInput title={i.title} changeTitle={changeTitle}/>
 								<button
 									className={s.removeButton}
-									onClick={() => props.removeTask(props.id, i.id)}
+									onClick={() => props.removeTask(props.todoListId, i.id)}
 								>
 									&#215;
 								</button>
@@ -87,15 +99,15 @@ const Todolist = (props: PropsType) => {
 			</ul>
 			<div>
 				<button className={props.filter === 'all' ? `${s.button} ${s.buttonActive}` : s.button} onClick={() => {
-					props.changeFilter('all', props.id)
+					props.changeFilter('all', props.todoListId)
 				}}>All
 				</button>
 				<button className={props.filter === 'active' ? `${s.button} ${s.buttonActive}` : s.button} onClick={() => {
-					props.changeFilter('active', props.id)
+					props.changeFilter('active', props.todoListId)
 				}}>Active
 				</button>
 				<button className={props.filter === 'completed' ? `${s.button} ${s.buttonActive}` : s.button} onClick={() => {
-					props.changeFilter('completed', props.id)
+					props.changeFilter('completed', props.todoListId)
 				}}>Completed
 				</button>
 			</div>
