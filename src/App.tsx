@@ -9,7 +9,7 @@ type TodolistType = {
 	title: string
 	filter: FilterValuesType
 }
-type TaskType = {
+export type TaskType = {
 	id: string
 	title: string
 	checkbox: boolean
@@ -59,8 +59,10 @@ function App() {
 
 	const addTask = (todoListId: string, title: string) => {
 		const newTask = {id: v1(), title, checkbox: false};
+		const tasksTodolist = tasks[todoListId];
 
-		tasks[todoListId].push(newTask);
+		// tasks[todoListId].push(newTask);
+		tasks[todoListId] = [newTask, ...tasksTodolist];
 		setTasks({...tasks});
 	}
 
@@ -76,7 +78,7 @@ function App() {
 	const removeTodoList = (todoListId: string) => {
 		const arrTodoList = todoLists.filter(t => t.id !== todoListId);
 
-		setTodoLists([...arrTodoList]);
+		setTodoLists(arrTodoList);
 
 		delete tasks[todoListId];
 	}
@@ -88,10 +90,10 @@ function App() {
 					let tasksTodolist = tasks[t.id];
 
 					if (t.filter === 'completed') {
-						tasksTodolist = tasks[t.id].filter(i => i.checkbox);
+						tasksTodolist = tasksTodolist.filter(i => i.checkbox);
 					}
 					if (t.filter === 'active') {
-						tasksTodolist = tasks[t.id].filter(i => !i.checkbox);
+						tasksTodolist = tasksTodolist.filter(i => !i.checkbox);
 					}
 
 					return (

@@ -1,12 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterValuesType} from '../../App';
+import {FilterValuesType, TaskType} from '../../App';
 import s from './Todolist.module.css';
 
-type TaskType = {
-	id: string
-	title: string
-	checkbox: boolean
-}
 type PropsType = {
 	id: string
 	title: string
