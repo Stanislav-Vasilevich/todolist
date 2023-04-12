@@ -55,7 +55,6 @@ const Todolist = (props: PropsType) => {
 	return (
 		<div>
 			<h3>
-				{/*{props.title}*/}
 				<ChangeInput title={props.title} changeTitle={changeTitleTodoList}/>
 				<button
 					className={s.removeButton}
