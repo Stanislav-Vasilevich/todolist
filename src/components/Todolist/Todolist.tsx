@@ -1,8 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterTasksType, TaskType} from '../App/App';
 import s from './Todolist.module.css';
 import AddItemForm from '../AddItemForm/AddItemForm';
 import EditableTitle from '../EditableTitle/EditableTitle';
+import {Button, IconButton} from '@mui/material';
 
 type PropsType = {
   todolistId: string
@@ -30,10 +31,6 @@ const Todolist = (props: PropsType) => {
     props.changeFilter(props.todolistId, 'completed');
   }
 
-  const activeClassButtonFilterAll = props.filter === 'all' ? s.buttonActive : s.button;
-  const activeClassButtonFilterActive = props.filter === 'active' ? s.buttonActive : s.button;
-  const activeClassButtonFilterCompleted = props.filter === 'completed' ? s.buttonActive : s.button;
-
   const addTask = (title: string) => {
     props.addTask(props.todolistId, title);
   }
@@ -41,6 +38,10 @@ const Todolist = (props: PropsType) => {
   const editTitleTodolist = (value: string) => {
     props.editTitleTodolist(props.todolistId, value);
   }
+
+  const activeClassButtonFilterAll = props.filter === 'all' ? s.buttonActive : s.button;
+  const activeClassButtonFilterActive = props.filter === 'active' ? s.buttonActive : s.button;
+  const activeClassButtonFilterCompleted = props.filter === 'completed' ? s.buttonActive : s.button;
 
   return (
     <div>
@@ -72,9 +73,9 @@ const Todolist = (props: PropsType) => {
         })}
       </ul>
       <div>
-        <button className={activeClassButtonFilterAll} onClick={filteredTasksAll}>All</button>
-        <button className={activeClassButtonFilterActive} onClick={filteredTasksActive}>Active</button>
-        <button className={activeClassButtonFilterCompleted} onClick={filteredTasksCompleted}>Completed</button>
+        <Button className={activeClassButtonFilterAll} onClick={filteredTasksAll} size={'small'} variant="outlined">All</Button>
+        <Button className={activeClassButtonFilterActive} onClick={filteredTasksActive} size={'small'} variant="outlined">Active</Button>
+        <Button className={activeClassButtonFilterCompleted} onClick={filteredTasksCompleted} size={'small'} variant="outlined">Completed</Button>
       </div>
     </div>
   );
