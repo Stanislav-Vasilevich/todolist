@@ -1,5 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from '../Todolist/Todolist.module.css';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import {Button, FormControl, FormHelperText, Icon, IconButton, Input, InputLabel, TextField} from '@mui/material';
 
 type PropsType = {
   addItem: (value: string) => void
@@ -39,14 +42,18 @@ const AddItemForm = (props: PropsType) => {
 
   return (
     <div>
-      <input
+      <TextField
         className={error ? s.inputError : ''}
-        type="text" onChange={changeValue}
-        value={value}
+        onChange={changeValue}
         onKeyPress={onKeyPressHandler}
+        value={value}
+        label={error ? error : ''}
+        type="text"
+        variant="standard"
       />
-      <button onClick={addItemHandler}>+</button>
-      {error ? <div className={s.inputErrorText}>{error}</div> : ''}
+      <IconButton onClick={addItemHandler}>
+        <Icon color="primary">+</Icon>
+      </IconButton>
     </div>
   );
 };

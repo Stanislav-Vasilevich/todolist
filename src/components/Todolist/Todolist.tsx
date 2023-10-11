@@ -3,7 +3,8 @@ import {FilterTasksType, TaskType} from '../App/App';
 import s from './Todolist.module.css';
 import AddItemForm from '../AddItemForm/AddItemForm';
 import EditableTitle from '../EditableTitle/EditableTitle';
-import {Button, IconButton} from '@mui/material';
+import {Button, Checkbox, IconButton} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type PropsType = {
   todolistId: string
@@ -65,9 +66,11 @@ const Todolist = (props: PropsType) => {
 
           return (
             <li className={t.isDone ? s.checkboxActive : ''} key={t.id}>
-              <input type="checkbox" checked={t.isDone} onChange={onChangeTaskStatusHandler}/>
+              <Checkbox checked={t.isDone} onChange={onChangeTaskStatusHandler} defaultChecked size="small" />
               <EditableTitle title={t.title} editTitle={editTitleTask}/>
-              <button onClick={removeTaskHandler}>x</button>
+              <IconButton onClick={removeTaskHandler} aria-label="delete" size="small">
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
             </li>
           )
         })}
