@@ -43,13 +43,13 @@ const AddItemForm = (props: PropsType) => {
   return (
     <div>
       <TextField
-        className={error ? s.inputError : ''}
         onChange={changeValue}
-        onKeyPress={onKeyPressHandler}
+        onKeyDown={onKeyPressHandler}
         value={value}
         label={error ? error : ''}
         type="text"
         variant="standard"
+				error={!!error}
       />
       <IconButton onClick={addItemHandler}>
         <Icon color="primary">+</Icon>

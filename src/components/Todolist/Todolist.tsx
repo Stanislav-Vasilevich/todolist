@@ -40,17 +40,13 @@ const Todolist = (props: PropsType) => {
     props.editTitleTodolist(props.todolistId, value);
   }
 
-  const activeClassButtonFilterAll = props.filter === 'all' ? s.buttonActive : s.button;
-  const activeClassButtonFilterActive = props.filter === 'active' ? s.buttonActive : s.button;
-  const activeClassButtonFilterCompleted = props.filter === 'completed' ? s.buttonActive : s.button;
-
   return (
     <div>
       <h2>
         <EditableTitle title={props.title} editTitle={editTitleTodolist}/>
       </h2>
       <AddItemForm addItem={addTask}/>
-      <ul>
+      <ul className={s.list}>
         {props.tasks.map(t => {
           const removeTaskHandler = () => {
             props.removeTask(props.todolistId, t.id);
@@ -66,7 +62,7 @@ const Todolist = (props: PropsType) => {
 
           return (
             <li className={t.isDone ? s.checkboxActive : ''} key={t.id}>
-              <Checkbox checked={t.isDone} onChange={onChangeTaskStatusHandler} defaultChecked size="small" />
+              <Checkbox checked={t.isDone} onChange={onChangeTaskStatusHandler} size="small" />
               <EditableTitle title={t.title} editTitle={editTitleTask}/>
               <IconButton onClick={removeTaskHandler} aria-label="delete" size="small">
                 <DeleteIcon fontSize="inherit" />
@@ -76,9 +72,27 @@ const Todolist = (props: PropsType) => {
         })}
       </ul>
       <div>
-        <Button className={activeClassButtonFilterAll} onClick={filteredTasksAll} size={'small'} variant="outlined">All</Button>
-        <Button className={activeClassButtonFilterActive} onClick={filteredTasksActive} size={'small'} variant="outlined">Active</Button>
-        <Button className={activeClassButtonFilterCompleted} onClick={filteredTasksCompleted} size={'small'} variant="outlined">Completed</Button>
+        <Button
+					onClick={filteredTasksAll}
+					size={'small'}
+					variant={props.filter === 'all' ? 'contained' : 'outlined'}
+				>
+					All
+				</Button>
+        <Button
+					onClick={filteredTasksActive}
+					size={'small'}
+					variant={props.filter === 'active' ? 'contained' : 'outlined'}
+				>
+					Active
+				</Button>
+        <Button
+					variant={props.filter === 'completed' ? 'contained' : 'outlined'}
+					onClick={filteredTasksCompleted}
+					size={'small'}
+				>
+					Completed
+				</Button>
       </div>
     </div>
   );
