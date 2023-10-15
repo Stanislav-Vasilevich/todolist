@@ -12,7 +12,7 @@ export type TaskType = {
 	title: string
 	isDone: boolean
 }
-type TasksType = {
+export type TasksType = {
 	[key: string]: Array<TaskType>
 }
 type TodolistType = {
@@ -89,6 +89,13 @@ const App = () => {
 		setTasks({...tasks});
 	}
 
+	const deleteTodolistTitle = (todolistId: string) => {
+		setTodolist(todolist.filter(t => t.id !== todolistId));
+
+		delete tasks[todolistId];
+		setTasks({...tasks});
+	}
+
 	return (
 		<div>
 			<AppBar position="static">
@@ -103,10 +110,7 @@ const App = () => {
 			</AppBar>
 
 			<Container maxWidth="xl">
-				<Grid
-					container
-					style={{padding: '20px'}}
-				>
+				<Grid container style={{padding: '20px'}}>
 					<AddItemForm addItem={addTodolist}/>
 				</Grid>
 				<Grid
@@ -132,10 +136,9 @@ const App = () => {
 							}
 
 							return (
-								<Grid item>
+								<Grid key={t.id} item>
 									<Paper style={{padding: '40px'}}>
 										<Todolist
-											key={t.id}
 											todolistId={t.id}
 											title={t.title}
 											tasks={filteredTask()}
@@ -146,6 +149,7 @@ const App = () => {
 											changeFilter={changeFilter}
 											editTitleTodolist={editTitleTodolist}
 											editTitleTask={editTitleTask}
+											deleteTodolistTitle={deleteTodolistTitle}
 										/>
 									</Paper>
 								</Grid>
