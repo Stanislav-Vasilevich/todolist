@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import Todolist from '../Todolist/Todolist';
 import s from './App.module.css';
 import {v1} from 'uuid';
@@ -6,6 +6,7 @@ import AddItemForm from '../AddItemForm/AddItemForm';
 import {AppBar, Box, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import {addTaskAC, tasksReducer} from "../../state/tasks-reducer";
 
 export type TaskType = {
 	id: string
@@ -15,7 +16,7 @@ export type TaskType = {
 export type TasksType = {
 	[key: string]: Array<TaskType>
 }
-type TodolistType = {
+export type TodolistType = {
 	id: string
 	title: string
 	filter: FilterTasksType
@@ -50,10 +51,33 @@ const App = () => {
 		],
 	});
 
+	// 	const [tasks, dispatch] = useReducer(tasksReducer, {
+	// 	[todolistId1]: [
+	// 		{id: v1(), title: 'HTML&CSS', isDone: true},
+	// 		{id: v1(), title: 'JS', isDone: false},
+	// 		{id: v1(), title: 'React', isDone: false},
+	// 	],
+	// 	[todolistId2]: [
+	// 		{id: v1(), title: 'Milk', isDone: true},
+	// 		{id: v1(), title: 'Meet', isDone: false},
+	// 		{id: v1(), title: 'Water', isDone: false},
+	// 	],
+	// 	[todolistId3]: [
+	// 		{id: v1(), title: 'Book', isDone: true},
+	// 		{id: v1(), title: 'Newspaper', isDone: false},
+	// 		{id: v1(), title: 'Posts', isDone: false},
+	// 	],
+	// })
+
 	const addTask = (todolistId: string, title: string) => {
 		const task = {id: v1(), title, isDone: false};
 
 		setTasks({...tasks, [todolistId]: [task, ...tasks[todolistId]]});
+		// const dispatch = (action) => {
+		// 	tasksReducer(tasks, action);
+		// };
+		//
+		// dispatch(addTaskAC);
 	}
 
 	const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {
@@ -89,7 +113,7 @@ const App = () => {
 		setTasks({...tasks});
 	}
 
-	const deleteTodolistTitle = (todolistId: string) => {
+	const removeTodolistTitle = (todolistId: string) => {
 		setTodolist(todolist.filter(t => t.id !== todolistId));
 
 		delete tasks[todolistId];
@@ -149,7 +173,7 @@ const App = () => {
 											changeFilter={changeFilter}
 											editTitleTodolist={editTitleTodolist}
 											editTitleTask={editTitleTask}
-											deleteTodolistTitle={deleteTodolistTitle}
+											deleteTodolistTitle={removeTodolistTitle}
 										/>
 									</Paper>
 								</Grid>
